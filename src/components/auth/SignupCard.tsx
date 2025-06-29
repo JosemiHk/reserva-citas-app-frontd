@@ -37,87 +37,163 @@ const SignupCard = () => {
       },
     })
   }
-
   return (
     <LayoutAuth icon={<AccountCircleIcon fontSize="inherit" />}>
-      <h2 className="text-2xl font-bold text-center mb-1 text-primary">
-        Crear cuenta
-      </h2>
-      <p className="text-gray-500 text-center mb-6 text-sm">
-        Completa el formulario para registrarte
-      </p>
-      <form className="space-y-4" onSubmit={handleSubmit}>
-        <div>
-          <label className="block text-sm font-medium mb-1" htmlFor="name">
-            Nombre
+      <div className="text-center mb-6">
+        <h2 className="text-2xl font-bold mb-2" style={{color: '#034C8C'}}>
+          Crear cuenta
+        </h2>
+        <p className="text-sm" style={{color: '#1C588C'}}>
+          Completa el formulario para unirte al sistema SISOL
+        </p>
+      </div>
+      
+      <form className="space-y-5" onSubmit={handleSubmit}>
+        <div className="space-y-1">
+          <label 
+            className="block text-sm font-semibold" 
+            htmlFor="name"
+            style={{color: '#034C8C'}}
+          >
+            Nombre completo
           </label>
-          <input
-            id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-gray-50"
-            placeholder="Tu nombre"
-          />
+          <div className="relative">
+            <input
+              id="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="auth-input w-full rounded-lg px-4 py-3 text-sm"
+              placeholder="Tu nombre completo"
+            />
+            <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+              <svg className="w-5 h-5" style={{color: '#03A696'}} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+            </div>
+          </div>
         </div>
-        <div>
-          <label className="block text-sm font-medium mb-1" htmlFor="email">
+
+        <div className="space-y-1">
+          <label 
+            className="block text-sm font-semibold" 
+            htmlFor="email"
+            style={{color: '#034C8C'}}
+          >
             Correo electrónico
           </label>
-          <input
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-gray-50"
-            placeholder="m@ejemplo.com"
-          />
+          <div className="relative">
+            <input
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="auth-input w-full rounded-lg px-4 py-3 text-sm"
+              placeholder="correo@sisol.gob.pe"
+            />
+            <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+              <svg className="w-5 h-5" style={{color: '#03A696'}} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
+              </svg>
+            </div>
+          </div>
         </div>
-        <div>
-          <label className="block text-sm font-medium mb-1" htmlFor="password">
+
+        <div className="space-y-1">
+          <label 
+            className="block text-sm font-semibold" 
+            htmlFor="password"
+            style={{color: '#034C8C'}}
+          >
             Contraseña
           </label>
-          <input
-            id="password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-gray-50"
-            placeholder="Contraseña"
-          />
+          <div className="relative">
+            <input
+              id="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="auth-input w-full rounded-lg px-4 py-3 text-sm"
+              placeholder="••••••••"
+            />
+            <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+              <svg className="w-5 h-5" style={{color: '#03A696'}} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+            </div>
+          </div>
         </div>
-        <div>
+
+        <div className="space-y-1">
           <label
-            className="block text-sm font-medium mb-1"
+            className="block text-sm font-semibold"
             htmlFor="confirmPassword"
+            style={{color: '#034C8C'}}
           >
             Confirmar contraseña
           </label>
-          <input
-            id="confirmPassword"
-            type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-gray-50"
-            placeholder="Repite tu contraseña"
-          />
+          <div className="relative">
+            <input
+              id="confirmPassword"
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              className="auth-input w-full rounded-lg px-4 py-3 text-sm"
+              placeholder="••••••••"
+            />
+            <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+              <svg className="w-5 h-5" style={{color: '#03A696'}} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+          </div>
         </div>
+
         <button
           type="submit"
           disabled={signupMutation.isPending}
-          className="w-full bg-black text-white rounded-md py-2 font-semibold mt-2 hover:bg-gray-900 transition disabled:opacity-60"
+          className="auth-button w-full text-white rounded-lg py-3 font-semibold text-sm flex items-center justify-center space-x-2"
         >
-          {signupMutation.isPending ? 'Registrando...' : 'Registrarse'}
+          {signupMutation.isPending ? (
+            <>
+              <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              <span>Registrando...</span>
+            </>
+          ) : (
+            <>
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+              </svg>
+              <span>Crear Cuenta</span>
+            </>
+          )}
         </button>
+
         {error && (
-          <div className="bg-red-100 text-red-700 rounded px-4 py-2 mt-2 text-center text-sm break-words">
-            {error}
+          <div className="auth-error rounded-lg px-4 py-3 text-center text-sm font-medium break-words">
+            <div className="flex items-center justify-center space-x-2">
+              <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16c-.77.833.192 2.5 1.732 2.5z" />
+              </svg>
+              <span>{error}</span>
+            </div>
           </div>
         )}
       </form>
-      <div className="mt-6 text-center text-sm text-gray-600">
-        ¿Ya tienes cuenta?{' '}
-        <a href="/auth/login" className="underline hover:text-primary">
-          Inicia sesión aquí
-        </a>
+      
+      <div className="mt-6 text-center">
+        <p className="text-sm" style={{color: '#1C588C'}}>
+          ¿Ya tienes cuenta?{' '}
+          <a href="/auth/login" className="auth-link font-semibold">
+            Inicia sesión aquí
+          </a>
+        </p>
+        <div className="mt-4 pt-4 border-t" style={{borderColor: 'rgba(3, 166, 150, 0.2)'}}>
+          <p className="text-xs" style={{color: '#1C588C'}}>
+            © 2025 SISOL Lima - Registro seguro y confiable
+          </p>
+        </div>
       </div>
     </LayoutAuth>
   )

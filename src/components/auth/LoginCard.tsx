@@ -24,75 +24,139 @@ const LoginCard = () => {
       }
     )
   }
-
   return (
     <LayoutAuth icon={<LockOpenIcon fontSize="inherit" />}>
-      <h2 className="text-2xl font-bold text-center mb-1">
-        Inicia sesión en tu cuenta
-      </h2>
-      <p className="text-gray-500 text-center mb-6 text-sm">
-        Ingresa tu correo y contraseña para acceder
-      </p>
-      <form className="space-y-4" onSubmit={handleSubmit}>
-        <div>
-          <label className="block text-sm font-medium mb-1" htmlFor="email">
+      <div className="text-center mb-6">
+        <h2 className="text-2xl font-bold mb-2" style={{color: '#034C8C'}}>
+          Inicia sesión en tu cuenta
+        </h2>
+        <p className="text-sm" style={{color: '#1C588C'}}>
+          Ingresa tu correo y contraseña para acceder al sistema
+        </p>
+      </div>
+      
+      <form className="space-y-5" onSubmit={handleSubmit}>
+        <div className="space-y-1">
+          <label 
+            className="block text-sm font-semibold" 
+            htmlFor="email"
+            style={{color: '#034C8C'}}
+          >
             Correo electrónico
           </label>
-          <input
-            id="email"
-            type="email"
-            autoComplete="email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-gray-50"
-            placeholder="m@ejemplo.com"
-          />
+          <div className="relative">
+            <input
+              id="email"
+              type="email"
+              autoComplete="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="auth-input w-full rounded-lg px-4 py-3 text-sm"
+              placeholder="correo@sisol.gob.pe"
+            />
+            <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+              <svg className="w-5 h-5" style={{color: '#03A696'}} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
+              </svg>
+            </div>
+          </div>
         </div>
-        <div>
-          <div className="flex justify-between items-center mb-1">
-            <label className="text-sm font-medium" htmlFor="password">
+
+        <div className="space-y-1">
+          <div className="flex justify-between items-center">
+            <label 
+              className="text-sm font-semibold" 
+              htmlFor="password"
+              style={{color: '#034C8C'}}
+            >
               Contraseña
             </label>
-            {/* <Link to="/auth/forgot" className="text-xs text-primary hover:underline">
+            {/* <Link to="/auth/forgot" className="auth-link text-xs">
                 ¿Olvidaste tu contraseña?
               </Link> */}
           </div>
-          <input
-            id="password"
-            type="password"
-            autoComplete="current-password"
-            required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary bg-gray-50"
-          />
+          <div className="relative">
+            <input
+              id="password"
+              type="password"
+              autoComplete="current-password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="auth-input w-full rounded-lg px-4 py-3 text-sm"
+              placeholder="••••••••"
+            />
+            <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+              <svg className="w-5 h-5" style={{color: '#03A696'}} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+            </div>
+          </div>
         </div>
+
         <button
           type="submit"
           disabled={loginMutation.isPending}
-          className="w-full bg-black text-white rounded-md py-2 font-semibold mt-2 hover:bg-gray-900 transition disabled:opacity-60"
+          className="auth-button w-full text-white rounded-lg py-3 font-semibold text-sm flex items-center justify-center space-x-2"
         >
-          {loginMutation.isPending ? 'Ingresando...' : 'Ingresar'}
+          {loginMutation.isPending ? (
+            <>
+              <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              <span>Ingresando...</span>
+            </>
+          ) : (
+            <>
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+              </svg>
+              <span>Ingresar al Sistema</span>
+            </>
+          )}
         </button>
+
         {loginMutation.isError && (
-          <div className="bg-red-100 text-red-700 rounded px-4 py-2 mt-2 text-center text-sm">
-            {loginMutation.error instanceof Error
-              ? loginMutation.error.message
-              : 'Error al iniciar sesión'}
+          <div className="auth-error rounded-lg px-4 py-3 text-center text-sm font-medium">
+            <div className="flex items-center justify-center space-x-2">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16c-.77.833.192 2.5 1.732 2.5z" />
+              </svg>
+              <span>
+                {loginMutation.error instanceof Error
+                  ? loginMutation.error.message
+                  : 'Error al iniciar sesión. Verifica tus credenciales.'}
+              </span>
+            </div>
           </div>
         )}
+
         {loginMutation.isSuccess && (
-          <div className="bg-green-100 text-green-700 rounded px-4 py-2 mt-2 text-center text-sm">
-            ¡Sesión iniciada correctamente!
+          <div className="auth-success rounded-lg px-4 py-3 text-center text-sm font-medium">
+            <div className="flex items-center justify-center space-x-2">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span>¡Sesión iniciada correctamente! Redirigiendo...</span>
+            </div>
           </div>
         )}
       </form>
-      <div className="mt-6 text-center text-sm text-gray-600">
-        ¿No tienes cuenta?{' '}
-        <Link to="/auth/signup" className="underline hover:text-primary">
-          Regístrate aquí
-        </Link>
+      
+      <div className="mt-6 text-center">
+        <p className="text-sm" style={{color: '#1C588C'}}>
+          ¿No tienes cuenta?{' '}
+          <Link to="/auth/signup" className="auth-link font-semibold">
+            Regístrate aquí
+          </Link>
+        </p>
+        <div className="mt-4 pt-4 border-t" style={{borderColor: 'rgba(3, 166, 150, 0.2)'}}>
+          <p className="text-xs" style={{color: '#1C588C'}}>
+            © 2025 SISOL Lima - Sistema seguro y confiable
+          </p>
+        </div>
       </div>
     </LayoutAuth>
   )

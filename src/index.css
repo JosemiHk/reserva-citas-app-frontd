@@ -84,3 +84,76 @@
   font-weight: 600;
   text-decoration: none;
 }
+
+/* Estilos para formularios de autenticación */
+.auth-container {
+  background: linear-gradient(135deg, var(--sisol-gray-light) 0%, rgba(3, 166, 150, 0.1) 100%);
+  min-height: 100vh;
+}
+
+.auth-card {
+  background: white;
+  border: 1px solid rgba(3, 166, 150, 0.1);
+  box-shadow: 0 20px 40px rgba(3, 76, 140, 0.1);
+  transition: all 0.3s ease;
+}
+
+.auth-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 25px 50px rgba(3, 76, 140, 0.15);
+}
+
+.auth-input {
+  border: 2px solid #e5e7eb;
+  transition: all 0.3s ease;
+  background: #f9fafb;
+}
+
+.auth-input:focus {
+  outline: none;
+  border-color: var(--sisol-teal);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(3, 166, 150, 0.1);
+}
+
+.auth-button {
+  background: linear-gradient(135deg, var(--sisol-blue-dark), var(--sisol-blue-medium));
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.auth-button:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--sisol-blue-medium), var(--sisol-teal));
+  transform: translateY(-1px);
+  box-shadow: 0 8px 25px rgba(3, 76, 140, 0.25);
+}
+
+.auth-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.auth-link {
+  color: var(--sisol-teal);
+  transition: all 0.2s ease;
+  text-decoration: underline;
+}
+
+.auth-link:hover {
+  color: var(--sisol-blue-dark);
+  text-decoration: none;
+}
+
+.auth-error {
+  background: linear-gradient(135deg, #fef2f2, #fee2e2);
+  border: 1px solid #fca5a5;
+  color: #dc2626;
+}
+
+.auth-success {
+  background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+  border: 1px solid #86efac;
+  color: #16a34a;
+}
