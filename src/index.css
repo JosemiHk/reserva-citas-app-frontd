@@ -1,1 +1,86 @@
 @import "tailwindcss";
+
+/* Paleta de colores SISOL */
+:root {
+  --sisol-blue-dark: #034C8C;
+  --sisol-blue-medium: #1C588C; 
+  --sisol-teal: #03A696;
+  --sisol-orange: #F28705;
+  --sisol-gray-light: #F2F2F2;
+}
+
+/* Gradientes personalizados */
+.bg-sisol-gradient {
+  background: linear-gradient(135deg, var(--sisol-blue-dark) 0%, var(--sisol-blue-medium) 50%, var(--sisol-teal) 100%);
+}
+
+.bg-sisol-card-gradient {
+  background: linear-gradient(145deg, rgba(3, 76, 140, 0.05) 0%, rgba(3, 166, 150, 0.05) 100%);
+}
+
+/* Animaciones suaves */
+.hover-lift {
+  transition: all 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(3, 76, 140, 0.15);
+}
+
+/* Efectos de hover para botones */
+.btn-sisol-primary {
+  background: linear-gradient(135deg, var(--sisol-blue-dark), var(--sisol-blue-medium));
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-sisol-primary:hover {
+  background: linear-gradient(135deg, var(--sisol-blue-medium), var(--sisol-teal));
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(3, 76, 140, 0.3);
+}
+
+.btn-sisol-secondary {
+  background: var(--sisol-orange);
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-sisol-secondary:hover {
+  background: #e07804;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(242, 135, 5, 0.3);
+}
+
+/* Botón para header */
+.btn-header-login {
+  background: linear-gradient(135deg, var(--sisol-blue-dark), var(--sisol-blue-medium));
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-header-login:hover {
+  background: linear-gradient(135deg, var(--sisol-blue-medium), var(--sisol-teal));
+  transform: translateY(-1px);
+  box-shadow: 0 6px 15px rgba(3, 76, 140, 0.25);
+  text-decoration: none;
+}
+
+/* Enlaces de navegación */
+.nav-link {
+  color: #6b7280;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  color: var(--sisol-blue-dark);
+  font-weight: 600;
+  text-decoration: none;
+}
