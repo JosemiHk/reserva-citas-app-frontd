@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router'
 import { useSignup } from '../../hook/auth/useSignup'
 import { userSignupSchema } from '../../types/auth'
 import { Role } from '../../types/user'
-import LayoutAuth from './LayoutAuth'
 
 const SignupCard = () => {
   const navigate = useNavigate()
@@ -37,8 +36,17 @@ const SignupCard = () => {
       },
     })
   }
+
   return (
-    <LayoutAuth icon={<AccountCircleIcon fontSize="inherit" />}>
+    <>
+      {/* Icon container */}
+      <div 
+        className="w-16 h-16 rounded-full flex items-center justify-center mb-6 mx-auto"
+        style={{background: 'linear-gradient(135deg, rgba(3, 166, 150, 0.1), rgba(3, 76, 140, 0.1))'}}
+      >
+        <AccountCircleIcon style={{color: '#034C8C', fontSize: '2rem'}} />
+      </div>
+
       <div className="text-center mb-6">
         <h2 className="text-2xl font-bold mb-2" style={{color: '#034C8C'}}>
           Crear cuenta
@@ -188,14 +196,12 @@ const SignupCard = () => {
           <a href="/auth/login" className="auth-link font-semibold">
             Inicia sesión aquí
           </a>
-        </p>
-        <div className="mt-4 pt-4 border-t" style={{borderColor: 'rgba(3, 166, 150, 0.2)'}}>
+        </p>        <div className="mt-4 pt-4 border-t" style={{borderColor: 'rgba(3, 166, 150, 0.2)'}}>
           <p className="text-xs" style={{color: '#1C588C'}}>
             © 2025 SISOL Lima - Registro seguro y confiable
-          </p>
-        </div>
+          </p>        </div>
       </div>
-    </LayoutAuth>
+    </>
   )
 }
 

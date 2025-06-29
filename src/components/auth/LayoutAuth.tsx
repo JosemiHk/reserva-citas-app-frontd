@@ -1,4 +1,3 @@
-import { Link, Typography } from '@mui/material'
 import type { FC, ReactNode } from 'react'
 
 interface LayoutProps {
@@ -20,19 +19,14 @@ const LayoutAuth: FC<LayoutProps> = ({ children, icon }) => {
               <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
               </svg>
-            </div>
-            <div>
-              <Typography
-                className="!text-2xl !font-bold !mb-0"
+            </div>            <div>
+              <div
+                className="text-2xl font-bold mb-0 cursor-pointer"
                 style={{color: '#034C8C'}}
-                align="left"
-                variant="h4"
-                component={Link}
-                underline="none"
-                href="/"
+                onClick={() => window.location.href = '/'}
               >
                 SISOL
-              </Typography>
+              </div>
               <p className="text-sm" style={{color: '#03A696', margin: 0}}>
                 Sistema Integrado de Salud
               </p>

@@ -3,7 +3,6 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { useLoginMutation } from '../../hook/auth/useLogin'
-import LayoutAuth from './LayoutAuth'
 
 const LoginCard = () => {
   const [email, setEmail] = useState('')
@@ -24,8 +23,17 @@ const LoginCard = () => {
       }
     )
   }
+
   return (
-    <LayoutAuth icon={<LockOpenIcon fontSize="inherit" />}>
+    <>
+      {/* Icon container */}
+      <div 
+        className="w-16 h-16 rounded-full flex items-center justify-center mb-6 mx-auto"
+        style={{background: 'linear-gradient(135deg, rgba(3, 166, 150, 0.1), rgba(3, 76, 140, 0.1))'}}
+      >
+        <LockOpenIcon style={{color: '#034C8C', fontSize: '2rem'}} />
+      </div>
+
       <div className="text-center mb-6">
         <h2 className="text-2xl font-bold mb-2" style={{color: '#034C8C'}}>
           Inicia sesión en tu cuenta
@@ -150,15 +158,13 @@ const LoginCard = () => {
           ¿No tienes cuenta?{' '}
           <Link to="/auth/signup" className="auth-link font-semibold">
             Regístrate aquí
-          </Link>
-        </p>
+          </Link>        </p>
         <div className="mt-4 pt-4 border-t" style={{borderColor: 'rgba(3, 166, 150, 0.2)'}}>
           <p className="text-xs" style={{color: '#1C588C'}}>
             © 2025 SISOL Lima - Sistema seguro y confiable
           </p>
-        </div>
-      </div>
-    </LayoutAuth>
+        </div>      </div>
+    </>
   )
 }
 
