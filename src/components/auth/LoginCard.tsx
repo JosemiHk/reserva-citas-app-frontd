@@ -3,25 +3,37 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { useLoginMutation } from '../../hook/auth/useLogin'
+import { userLoginSchema, formatValidationErrors } from '../../types/auth'
 
 const LoginCard = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
   const loginMutation = useLoginMutation()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    await loginMutation.mutateAsync(
-      { email, password },
-      {
-        onSuccess: (data) => {
-          const { userId } = data
-          localStorage.setItem('userId', userId)
+    setError('') // Limpiar errores previos
+    
+    const data = { email, password }
+    const result = userLoginSchema.safeParse(data)
 
-          window.location.href = '/admin'
-        },
-      }
-    )
+    if (!result.success) {
+      const errorMessages = formatValidationErrors(result.error)
+      setError(errorMessages.join(', '))
+      return
+    }
+
+    await loginMutation.mutateAsync(data, {
+      onSuccess: (data) => {
+        const { userId } = data
+        localStorage.setItem('userId', userId)
+        window.location.href = '/admin'
+      },
+      onError: (err: any) => {
+        setError(err?.message || 'Error al iniciar sesión. Verifica tus credenciales.')
+      },
+    })
   }
 
   return (
@@ -124,19 +136,13 @@ const LoginCard = () => {
               <span>Ingresar al Sistema</span>
             </>
           )}
-        </button>
-
-        {loginMutation.isError && (
-          <div className="auth-error rounded-lg px-4 py-3 text-center text-sm font-medium">
+        </button>        {error && (
+          <div className="auth-error rounded-lg px-4 py-3 text-center text-sm font-medium break-words">
             <div className="flex items-center justify-center space-x-2">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16c-.77.833.192 2.5 1.732 2.5z" />
               </svg>
-              <span>
-                {loginMutation.error instanceof Error
-                  ? loginMutation.error.message
-                  : 'Error al iniciar sesión. Verifica tus credenciales.'}
-              </span>
+              <span>{error}</span>
             </div>
           </div>
         )}

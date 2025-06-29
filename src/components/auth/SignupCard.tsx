@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router'
 
 import { useSignup } from '../../hook/auth/useSignup'
-import { userSignupSchema } from '../../types/auth'
+import { userSignupSchema, formatValidationErrors } from '../../types/auth'
 import { Role } from '../../types/user'
 
 const SignupCard = () => {
@@ -15,15 +15,23 @@ const SignupCard = () => {
   const [error, setError] = useState('')
 
   const signupMutation = useSignup()
-
+  
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    setError('') // Limpiar errores previos
+    
+    // Validar que las contraseñas coincidan
+    if (password !== confirmPassword) {
+      setError('Las contraseñas no coinciden')
+      return
+    }
+    
     const data = { name, email, password, role: Role.USER }
     const result = userSignupSchema.safeParse(data)
 
     if (!result.success) {
-      setError(JSON.stringify(result.error.errors) || 'Datos inválidos')
-
+      const errorMessages = formatValidationErrors(result.error)
+      setError(errorMessages.join(', '))
       return
     }
 
@@ -32,7 +40,7 @@ const SignupCard = () => {
         navigate('/auth/login')
       },
       onError: (err: any) => {
-        setError(err?.message || 'Error al registrar la cuenta')
+        setError(err?.message || 'Error al registrar la cuenta. Inténtalo de nuevo.')
       },
     })
   }
