@@ -9,6 +9,7 @@ import MainPage from './pages/Main'
 import LoginPage from './pages/auth/LoginPage'
 import SignupPage from './pages/auth/SignupPage'
 
+import DashboardPage from './pages/admin/DashboardPage'
 import CategoryDetailPage from './pages/categories/CategoryDetailPage'
 import CategoryNewPage from './pages/categories/CategoryNewPage'
 import CategoryPage from './pages/categories/CategoryPage'
@@ -23,21 +24,20 @@ const router = createBrowserRouter([
         element: <MainPage />,
       },
     ],
-  },
-  {
+  },  {
     path: 'admin',
     Component: LayoutAdmin,
     children: [
       {
         index: true,
-        element: <CategoryPage />,
+        element: <DashboardPage />,
       },
       {
         path: 'dashboard',
         children: [
           {
             path: '',
-            element: <CategoryPage />,
+            element: <DashboardPage />,
           },
         ],
       },
