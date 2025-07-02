@@ -1,0 +1,114 @@
+El Problema
+Estás enviando ambos profileId y profile en el mismo objeto, lo cual confunde a Prisma. Cuando tienes una relación 1:1, debes usar uno u otro, no ambos.
+
+La Solución
+SÍ, eliminar profileId: undefined es suficiente. Aquí está la estructura correcta:
+// Para CREAR un doctor con un nuevo perfil
+const doctorData = {
+  licenseNumber: "880862431",
+  resume: "a",
+  profile: {
+    create: {
+      name: "Juan",
+      lastName: "Pérez",
+      email: "juan.perez@email.com",
+      birthday: new Date("1980-01-01"),
+      gender: "M",
+      phone: "+51987654321",
+      address: "Av. Principal 123",
+      typeDocument: "DNI",
+      numberDocument: "12345678",
+      user: {
+        connect: { id: userId } // Si ya tienes el usuario creado
+      }
+      // O usar create si también necesitas crear el usuario
+    }
+  }
+}
+
+// Ejecutar la creación
+const newDoctor = await prisma.doctors.create({
+  data: doctorData,
+  include: {
+    profile: {
+      include: {
+        user: true
+      }
+    },
+    specialties: true
+  }
+})
+Si Ya Tienes un Profile Existente
+// Para CONECTAR un doctor a un perfil existente
+const doctorData = {
+  licenseNumber: "880862431", 
+  resume: "a",
+  profile: {
+    connect: { id: existingProfileId }
+  }
+}
+Estructura desde el Frontend (Next.js)
+// En tu componente de Next.js
+const createDoctor = async (formData) => {
+  const payload = {
+    licenseNumber: formData.licenseNumber,
+    resume: formData.resume,
+    // NO incluir profileId aquí
+    profile: {
+      create: {
+        name: formData.name,
+        lastName: formData.lastName,
+        email: formData.email,
+        birthday: new Date(formData.birthday),
+        gender: formData.gender,
+        phone: formData.phone,
+        address: formData.address,
+        typeDocument: formData.typeDocument,
+        numberDocument: formData.numberDocument,
+        user: {
+          connect: { id: formData.userId }
+        }
+      }
+    }
+  }
+
+  const response = await fetch('/api/doctors', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  })
+
+  return response.json()
+}
+
+En tu API Route (pages/api/doctors.js o app/api/doctors/route.js)
+import { prisma } from '@/lib/prisma'
+
+export async function POST(request) {
+  try {
+    const data = await request.json()
+    
+    const newDoctor = await prisma.doctors.create({
+      data,
+      include: {
+        profile: {
+          include: {
+            user: true
+          }
+        },
+        specialties: true
+      }
+    })
+
+    return Response.json(newDoctor)
+  } catch (error) {
+    console.error('Error creating doctor:', error)
+    return Response.json({ error: 'Failed to create doctor' }, { status: 500 })
+  }
+}
+Puntos Clave:
+Nunca mezcles profileId con profile: { create/connect } en la misma operación
+Usa profile.create para crear un nuevo perfil junto con el doctor
+Usa profile.connect para asociar un perfil existente
+El campo profileId se llena automáticamente cuando usas las operaciones anidadas
+El error desaparecerá una vez que elimines profileId: undefined del objeto de datos y uses únicamente la estructura anidada profile: { create: {...} }.
