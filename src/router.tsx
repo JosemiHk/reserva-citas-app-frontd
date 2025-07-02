@@ -14,6 +14,18 @@ import CategoryDetailPage from './pages/categories/CategoryDetailPage'
 import CategoryNewPage from './pages/categories/CategoryNewPage'
 import CategoryPage from './pages/categories/CategoryPage'
 
+import SpecialtyPage from './pages/specialties/SpecialtyPage'
+import SpecialtyDetailPage from './pages/specialties/SpecialtyDetailPage'
+import SpecialtyNewPage from './pages/specialties/SpecialtyNewPage'
+
+import DoctorPage from './pages/doctors/DoctorPage'
+import DoctorDetailPage from './pages/doctors/DoctorDetailPage'
+import DoctorNewPage from './pages/doctors/DoctorNewPage'
+
+import PatientPage from './pages/patients/PatientPage'
+import PatientDetailPage from './pages/patients/PatientDetailPage'
+import PatientNewPage from './pages/patients/PatientNewPage'
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -75,40 +87,52 @@ const router = createBrowserRouter([
             element: <CategoryNewPage />,
           },
         ],
-      },
-      {
+      },      {
         path: 'specialties',
         children: [
           {
             path: '',
-            element: <CategoryPage />,
+            element: <SpecialtyPage />,
           },
-        ],
-      },
-      {
-        path: 'specialties',
-        children: [
           {
-            path: '',
-            element: <CategoryPage />,
+            path: ':id/detail',
+            element: <SpecialtyDetailPage />,
+          },
+          {
+            path: 'new',
+            element: <SpecialtyNewPage />,
           },
         ],
-      },
-      {
+      },      {
         path: 'doctors',
         children: [
           {
             path: '',
-            element: <CategoryPage />,
+            element: <DoctorPage />,
+          },
+          {
+            path: ':id/detail',
+            element: <DoctorDetailPage />,
+          },
+          {
+            path: 'new',
+            element: <DoctorNewPage />,
           },
         ],
-      },
-      {
+      },      {
         path: 'patients',
         children: [
           {
             path: '',
-            element: <CategoryPage />,
+            element: <PatientPage />,
+          },
+          {
+            path: ':id/detail',
+            element: <PatientDetailPage />,
+          },
+          {
+            path: 'new',
+            element: <PatientNewPage />,
           },
         ],
       },

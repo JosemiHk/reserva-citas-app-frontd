@@ -1,0 +1,165 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "generated/client"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+model Users {
+  id            Int       @id @default(autoincrement())
+  name          String
+  email         String    @unique
+  password      String
+  photo         String?
+  role          String
+  validateEmail Boolean   @default(false)
+  deleted       Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime?
+  profile       Profiles?
+}
+
+model Profiles {
+  id             Int       @id @default(autoincrement())
+  name           String
+  lastName       String
+  email          String
+  birthday       DateTime?
+  gender         String?
+  national       String?
+  photo          String?
+  phone          String?
+  address        String?
+  typeProfileId  Int?
+  typeDocument   String?
+  numberDocument String?
+  userId         Int       @unique
+  deleted        Boolean   @default(false)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime?
+  user           Users     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  patient        Patients?
+  doctor         Doctors?
+}
+
+model Patients {
+  id                 Int            @id @default(autoincrement())
+  profileId          Int            @unique
+  emergencyContact   String
+  bloodType          String
+  allergies          String?
+  chronic_conditions String?
+  deleted            Boolean        @default(false)
+  createdAt          DateTime       @default(now())
+  updatedAt          DateTime?
+  profile            Profiles       @relation(fields: [profileId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  appointments       Appointments[]
+}
+
+model Doctors {
+  id            Int                  @id @default(autoincrement())
+  profileId     Int                  @unique
+  licenseNumber String
+  resume        String?
+  deleted       Boolean              @default(false)
+  createdAt     DateTime             @default(now())
+  updatedAt     DateTime?
+  profile       Profiles             @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  specialties   DoctorsSpecialties[]
+  availability  Availability[]
+  schedules     Schedules[]
+}
+
+model Specialties {
+  id           Int                  @id @default(autoincrement())
+  categoryId   Int
+  name         String
+  deleted      Boolean              @default(false)
+  createdAt    DateTime             @default(now())
+  updatedAt    DateTime?
+  category     Categories           @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  doctorLinks  DoctorsSpecialties[]
+  availability Availability[]
+  schedules    Schedules[]
+}
+
+model Categories {
+  id          Int           @id @default(autoincrement())
+  name        String
+  deleted     Boolean       @default(false)
+  createdAt   DateTime      @default(now())
+  deletedAt   DateTime?
+  specialties Specialties[]
+}
+
+model DoctorsSpecialties {
+  id          Int         @id @default(autoincrement())
+  doctorId    Int
+  specialtyId Int
+  deleted     Boolean     @default(false)
+  createdAt   DateTime    @default(now())
+  doctor      Doctors     @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+  specialty   Specialties @relation(fields: [specialtyId], references: [id], onDelete: Cascade)
+}
+
+model Availability {
+  id          Int         @id @default(autoincrement())
+  doctorId    Int
+  specialtyId Int
+  startDate   DateTime
+  endDate     DateTime
+  dayOfWeek   String
+  timeFrom    DateTime
+  timeTo      DateTime
+  isAvailable Boolean     @default(true)
+  type        String
+  reason      String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime?
+  doctor      Doctors     @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+  specialty   Specialties @relation(fields: [specialtyId], references: [id], onDelete: Cascade)
+}
+
+model Schedules {
+  id           Int            @id @default(autoincrement())
+  doctorId     Int
+  specialtyId  Int
+  scheduleDate DateTime
+  timeFrom     DateTime
+  timeTo       DateTime
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime?
+  doctor       Doctors        @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+  specialty    Specialties    @relation(fields: [specialtyId], references: [id], onDelete: Cascade)
+  appointments Appointments[]
+}
+
+model Appointments {
+  id            Int             @id @default(autoincrement())
+  patientId     Int
+  scheduleId    Int
+  reason        String?
+  notes         String?
+  status        String
+  paymentStatus String
+  deleted       Boolean         @default(false)
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime?
+  patient       Patients        @relation(fields: [patientId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  schedule      Schedules       @relation(fields: [scheduleId], references: [id], onDelete: Cascade)
+  clinicalNotes ClinicalNotes[]
+}
+
+model ClinicalNotes {
+  id            Int          @id @default(autoincrement())
+  appointmentId Int
+  summary       String?
+  plan          String?
+  deleted       Boolean      @default(false)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime?
+  appointment   Appointments @relation(fields: [appointmentId], references: [id], onDelete: Cascade)
+}
